@@ -3,6 +3,7 @@ Stellar Payments
 
 [![Build Status](https://travis-ci.org/stellar/stellar-payments.svg?branch=master)](https://travis-ci.org/stellar/stellar-payments) [![Coverage Status](https://coveralls.io/repos/stellar/stellar-payments/badge.png?branch=master)](https://coveralls.io/r/stellar/stellar-payments?branch=master)
 
+####Important: stellar-payments library should point to only one stellard node. live.stellar.org is load balanced, so we have set up public1.stellar.org which points to a dedicated stellar node via elastic ip. This should be used as the stellard hostname in the config.
 
 Stellar Payments is a Node JS library providing robust transaction submission to the Stellar network. Out of the box, it will correctly handle:
 
@@ -33,8 +34,8 @@ SQL storage out of the box, but you'll first have to add the Transactions table 
 var PaymentsClient = require('stellar-payments').Client;
 var payments = new PaymentsClient(config);
 
-// create a payment
-payments.createNewPayment(<destination>, 1, USD, <issuing address>, "withdrawal");
+// create a payment. use an amount object for a currency, or just an integer (in stellars) for a stellar payment
+payments.createNewPayment(<destination>, {value: 1, currency: "USD", issuer:<issuing address>}, "memo");
 ```
 
 #### Processing Payments

@@ -8,15 +8,19 @@ var db = Knex.initialize(config.db);
 db.schema.createTable('Transactions', function (table) {
     table.increments("id").primary();
     table.string("address", 128);
-    table.integer("amount");
+    table.decimal("amount",20,8);
+    table.string("currency", 10);
+    table.string("issuer", 128);
     table.string("memo", 512);
     table.text("txblob");
     table.string("txhash", 128);
     table.integer("sequence");
     table.text("error");
+    table.text("fatal");
     table.timestamp("signedAt").nullable();
     table.timestamp("submittedAt").nullable();
     table.timestamp("confirmedAt").nullable();
+    table.timestamp("erroredAt").nullable();
     table.timestamp("abortedAt").nullable();
 })
 .then(function () {
