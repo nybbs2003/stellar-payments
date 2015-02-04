@@ -32,25 +32,27 @@ SQL storage out of the box, but you'll first have to add the Transactions table 
 #### Insert a new payment
 ```js
 var PaymentsClient = require('stellar-payments').Client;
-var payments = new PaymentsClient(config);
+var payments_client = new PaymentsClient(config);
 
 // create a payment
-payments.createNewPayment(<destination>, 1, USD, <issuing address>, "withdrawal");
+payments_client.createNewPayment(<destination>, 1, "withdrawal");
 ```
 
 #### Processing Payments
 ```js
-var StellarPayments = require('stellar-payments').Payments;
-var payments = new StellarPayments(config);
+var POLL_INTERVAL = 500;
+var Payments = require('stellar-payments').Payments;
+var payments = new Payments(config);
 
 processPayments();
 
 // calls processPayments every 500 ms
 function processPayments() {
     setInterval(function () {
-        payments.processPayments(MAX_TRANSACTIONS)
+        payments.processPayments()
             .catch(function (err) {
                 // report fatal error
+                console.error(err);
             });
     }, POLL_INTERVAL);
 }
