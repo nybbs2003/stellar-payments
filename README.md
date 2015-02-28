@@ -27,7 +27,8 @@ SQL storage out of the box, but you'll first have to add the Transactions table 
 
 1. `cp ./node_modules/stellar-payments/config.js ./`
 2. Enter your db config into config.js
-3. `node ./node_modules/stellar-payments/bin/db-setup`
+3. `cd ./node_modules/stellar-payments/bin/`
+4. `nodejs db-setup`
 
 #### Insert a new payment
 ```js
